@@ -19,7 +19,37 @@
                             <button class="btn btn-success">Submit</button>
                         </div>
                     </div>
+                    <br>
+
                 </form>
+            </div>
+            <div class="col-lg-12">
+                <table class="table table-success table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Task</th>
+                            <th scope="col">status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($tasks as $key => $task)
+                            <tr>
+                                <th scope="row">{{ $key++ }}</th>
+                                <td>{{ $task->title }}</td>
+                                <td>
+                                    @if ($task->done == 1)
+                                        <span class="badge text-bg-success">Completed</span>
+                                    @else
+                                        <span class="badge text-bg-warning">Not Completed</span>
+                                    @endif
+                                </td>
+                                <td><a href="{{ route('todo.delete',$task->id) }}" >Delete</a href="todo.delete.{{ $task->id }}"></td>
+                            </tr>
+                        @endforeach
+                    <tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -27,7 +57,7 @@
 
 @once
     <style>
-        .page-title{
+        .page-title {
             padding-top: 3vh;
             font-size: 3rem;
             color: rgb(38, 106, 223);

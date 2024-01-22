@@ -17,7 +17,9 @@ class TodoController extends Controller
     }
 
     public function index(){
-        return view('pages.todo.index');
+
+        $response['tasks'] = $this->task->all();
+        return view('pages.todo.index')->with($response);
     }
 
     public function store(Request $request){
@@ -28,9 +30,18 @@ class TodoController extends Controller
 
         $this->task->create($request->all());
 
+        // return view('todo')->with('task',)
+
         // return view('pages.todo.index');
-        return redirect()->back();
+        // return redirect()->back();
         // return redirect()->route('home');
 
+    }
+
+    public function delete($id){
+
+        $task = $this->task->find($id);
+        $task->delete();
+        return redirect()->back();
     }
 }
